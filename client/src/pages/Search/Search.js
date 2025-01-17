@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../axios.js';
 import CircularProgress  from '@mui/material/CircularProgress';
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -82,6 +82,18 @@ export default function Search() {
     )
   }
 
+  // filters should be applied across entire result set, 
+  // not just within the current page
+  const updateFilterHandler = (newFilters) => {
+
+    // Reset paging
+    setSkip(0); 
+    setCurrentPage(1);
+
+    // Set filters
+    setFilters(newFilters);
+  };
+
   return (
     <main className="main main--search container-fluid">
       
@@ -90,7 +102,7 @@ export default function Search() {
           <div className="search-bar">
             <SearchBar postSearchHandler={postSearchHandler} q={q}></SearchBar>
           </div>
-          <Facets facets={facets} filters={filters} setFilters={setFilters}></Facets>
+          <Facets facets={facets} filters={filters} setFilters={updateFilterHandler}></Facets>
         </div>
         {body}
       </div>
