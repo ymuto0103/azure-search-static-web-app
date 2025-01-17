@@ -1,4 +1,3 @@
-
 # Readme: Static Web App for Azure AI Search
 
 This code sample builds a web site on Azure to search through a catalog of books. Searchable content is indexed and queried on Azure AI Search, and a static web app provides the search experience.
@@ -24,7 +23,7 @@ This README is an shortened version of the [full tutorial](https://aka.ms/search
 
 You should also have the Visual Studio code extension for the language used for building the index:
 
-* [Using .NET in Visual Studio Code](https://code.visualstudio.com/docs/languages/dotnet) and a recent of the .NET SDK
+* [Using .NET in Visual Studio Code](https://code.visualstudio.com/docs/languages/dotnet)
 
 ## Download sample repository
 
@@ -43,6 +42,14 @@ You should also have the Visual Studio code extension for the language used for 
 Build the good-books index using the instructions provided in the readme.To run this program, you need the search endpoint and [API keys](https://learn.microsoft.com/azure/search/search-security-api-keys#find-existing-keys). You can find this information in the Azure portal.
 
 * [bulk-insert/readme](/bulk-insert/readme.md)
+
+Check the Azure AI Search indexes page in the Azure portal to confirm the good-books index exists.
+
+## Set connection informtion to Azure AI Search
+
+1. Under the azure=search-static-web-app\api folder, update the sample.local.settings.json file to include your search service name (not the full URL) and an admin API key.
+
+1. Save the file as local.settings.json.
 
 ## Deploy the static web app
 
