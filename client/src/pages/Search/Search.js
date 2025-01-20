@@ -76,7 +76,7 @@ export default function Search() {
   } else {
     body = (
       <div className="col-md-9">
-        <Results documents={results} top={top} skip={skip} count={resultCount}></Results>
+        <Results documents={results} top={top} skip={skip} count={resultCount} query={q}></Results>
         <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} setCurrentPage={setCurrentPage}></Pager>
       </div>
     )
