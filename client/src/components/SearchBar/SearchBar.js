@@ -37,17 +37,16 @@ export default function SearchBar2({ postSearchHandler, query }) {
   };
 
   const onEnterButton = (event) => {
-    // console.log(`onEnterButton: ${q}`);
-    // if (event.keyCode === 13) {
-    //     console.log(`Enter key pressed ${q}`);
-    //   search(q);
-    // }
+    console.log(`onEnterButton: ${q}`);
+    // if enter key is pressed
+    if (event.key === 'Enter') {
+      search(q);
+    }
   };
 
   return (
     <div
       className="input-group"
-      onKeyDown={onEnterButton}
       style={{ width: '95%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto' }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', width: '75%', minWidth: '390px' }}>
@@ -76,7 +75,10 @@ export default function SearchBar2({ postSearchHandler, query }) {
         )}
       />
       <div className="input-group-btn" style={{ marginLeft: '10px' }}>
-        <Button variant="contained" color="primary" >
+        <Button variant="contained" color="primary" onClick={() => {
+          console.log(`search button: ${q}`);
+          search(q)}
+          }>
           Search
         </Button>
       </div>
