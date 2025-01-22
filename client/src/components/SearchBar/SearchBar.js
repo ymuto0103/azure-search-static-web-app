@@ -1,98 +1,88 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { TextField, Autocomplete, Button, Box } from '@mui/material';
 import axios from '../../axios.js';
-import Suggestions from './Suggestions/Suggestions';
 
-import "./SearchBar.css";
+export default function SearchBar2({ postSearchHandler, query }) {
+  const [q, setQ] = useState(() => query || '');
+  const [suggestions, setSuggestions] = useState([]);
 
-export default function SearchBar(props) {
+  const search = (value) => {
+    console.log(`search: ${value}`);
+    postSearchHandler(value);
+  };
 
-    let [q, setQ] = useState("");
-    let [suggestions, setSuggestions] = useState([]);
-    let [showSuggestions, setShowSuggestions] = useState(false);
+  useEffect(() => {
+    console.log(`useEffect getSuggestions: ${q}`);
+    if (q) {
+      axios.post('/api/suggest', { q, top: 5, suggester: 'sg' })
+      .then(response => {
+          setSuggestions(response.data.suggestions.map(s => s.text));
+      }).catch (error =>{
+          console.log(error);
+          setSuggestions([]);
+        });
+}}, [q]);
 
-    const onSearchHandler = () => {
-        props.postSearchHandler(q);
-        setShowSuggestions(false);
+
+  const onInputChangeHandler = (event, value) => {
+    console.log(`onInputChangeHandler: ${value}`);
+    setQ(value);
+  };
+
+
+  const onChangeHandler = (event, value) => {
+    console.log(`onChangeHandler: ${value}`);
+    setQ(value);
+    search(value);
+  };
+
+  const onEnterButton = (event) => {
+    console.log(`onEnterButton: ${q}`);
+    // if enter key is pressed
+    if (event.key === 'Enter') {
+      search(q);
     }
+  };
 
-    const suggestionClickHandler = (s) => {
-        document.getElementById("search-box").value = s;
-        setShowSuggestions(false);
-        props.postSearchHandler(s);    
-    }
-
-    const onEnterButton = (event) => {
-        if (event.keyCode === 13) {
-            onSearchHandler();
-        }
-    }
-
-    const onChangeHandler = () => {
-        var searchTerm = document.getElementById("search-box").value;
-        setShowSuggestions(true);
-        setQ(searchTerm);
-
-        // use this prop if you want to make the search more reactive
-        if (props.searchChangeHandler) {
-            props.searchChangeHandler(searchTerm);
-        }
-    }
-
-    useEffect(_ =>{
-        const timer = setTimeout(() => {
-            const body = {
-                q: q,
-                top: 5,
-                suggester: 'sg'
-            };
-
-            if (q === '') {
-                setSuggestions([]);
-            } else {
-                axios.post( '/api/suggest', body)
-                .then(response => {
-                    console.log(JSON.stringify(response.data))
-                    setSuggestions(response.data.suggestions);
-                } )
-                .catch(error => {
-                    console.log(error);
-                    setSuggestions([]);
-                });
-            }
-        }, 300);
-        return () => clearTimeout(timer);
-    }, [q, props]);
-
-    var suggestionDiv;
-    if (showSuggestions) {
-        suggestionDiv = (<Suggestions suggestions={suggestions} suggestionClickHandler={(s) => suggestionClickHandler(s)}></Suggestions>);
-    } else {
-        suggestionDiv = (<div></div>);
-    }
-
-    return (
-        <div >
-            <div className="input-group" onKeyDown={e => onEnterButton(e)}>
-                <div className="suggestions" >
-                    <input 
-                        autoComplete="off" // setting for browsers; not the app
-                        type="text" 
-                        id="search-box" 
-                        className="form-control rounded-0" 
-                        placeholder="What are you looking for?" 
-                        onChange={onChangeHandler} 
-                        defaultValue={props.q}
-                        onBlur={() => setShowSuggestions(false)}
-                        onClick={() => setShowSuggestions(true)}>
-                    </input>
-                    {suggestionDiv}
-                </div>
-                <div className="input-group-btn">
-                    <button className="btn btn-primary rounded-0" type="submit" onClick={onSearchHandler}>
-                        Search
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
+  return (
+    <div
+      className="input-group"
+      style={{ width: '95%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto' }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', width: '75%', minWidth: '390px' }}>
+      <Autocomplete
+        freeSolo
+        value={q}
+        options={suggestions}
+        onInputChange={onInputChangeHandler}
+        onChange={onChangeHandler}
+        disableClearable
+        sx={{
+          width: '75%',
+          '& .MuiAutocomplete-endAdornment': {
+            display: 'none'
+          }
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            id="search-box"
+            className="form-control rounded-0"
+            placeholder="What are you looking for?"
+            onBlur={() => setSuggestions([])}
+            onClick={() => setSuggestions([])}
+          />
+        )}
+      />
+      <div className="input-group-btn" style={{ marginLeft: '10px' }}>
+        <Button variant="contained" color="primary" onClick={() => {
+          console.log(`search button: ${q}`);
+          search(q)}
+          }>
+          Search
+        </Button>
+      </div>
+      </Box>
+    </div>
+  );
+}

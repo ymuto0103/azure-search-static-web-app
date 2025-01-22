@@ -1,3 +1,30 @@
+.main--search {
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.search-bar-column {
+    flex: 1;
+    min-width: 300px; /* Adjust as needed */
+}
+
+.search-bar-results {
+    flex: 2;
+    min-width: 300px; /* Adjust as needed */
+}
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+
+}
+
+
 .sui-layout-header {
     background-color: #0078d7;
     color: #eee;

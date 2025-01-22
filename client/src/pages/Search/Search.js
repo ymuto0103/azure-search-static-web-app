@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import axios from '../../axios.js';
 import CircularProgress  from '@mui/material/CircularProgress';
 import { useLocation, useNavigate } from "react-router-dom";
@@ -76,7 +76,7 @@ export default function Search() {
   } else {
     body = (
       <div className="col-md-9">
-        <Results documents={results} top={top} skip={skip} count={resultCount}></Results>
+        <Results documents={results} top={top} skip={skip} count={resultCount} query={q}></Results>
         <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} setCurrentPage={setCurrentPage}></Pager>
       </div>
     )
@@ -98,9 +98,9 @@ export default function Search() {
     <main className="main main--search container-fluid">
       
       <div className="row">
-        <div className="col-md-3">
+        <div className="search-bar-column col-md-3">
           <div className="search-bar">
-            <SearchBar postSearchHandler={postSearchHandler} q={q}></SearchBar>
+            <SearchBar postSearchHandler={postSearchHandler} query={q}></SearchBar>
           </div>
           <Facets facets={facets} filters={filters} setFilters={updateFilterHandler}></Facets>
         </div>

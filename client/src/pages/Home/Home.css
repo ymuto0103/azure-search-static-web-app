@@ -1,14 +1,24 @@
 .home-search {
     margin: 5em auto;
-    max-width: 45%;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center child elements horizontally */
+}
+
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5em;
 }
 
 .logo {
     height: 12em;
     width: auto;
-    display:block;
+    display: block;
     margin: auto auto 0;
+    object-fit: contain; /* Ensures the image maintains its aspect ratio */
+    max-width: 100%; /* Prevents the image from exceeding the container's width */
 }
 
 .poweredby {
