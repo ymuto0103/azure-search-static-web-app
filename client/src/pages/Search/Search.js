@@ -99,7 +99,7 @@ export default function Search() {
       
       <div className="row">
         <div className="search-bar-column col-md-3">
-          <div className="search-bar">
+          <div className="search-bar" style={{    border: '1px solid red'}}>
             <SearchBar postSearchHandler={postSearchHandler} query={q}></SearchBar>
           </div>
           <Facets facets={facets} filters={filters} setFilters={updateFilterHandler}></Facets>
