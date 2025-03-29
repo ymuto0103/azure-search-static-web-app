@@ -17,3 +17,7 @@
 .chip {
     margin: 0.25em;
 }
+
+.facet-list {
+    margin-top: 32px !important;
+}

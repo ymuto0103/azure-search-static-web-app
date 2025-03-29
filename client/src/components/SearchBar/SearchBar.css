@@ -1,5 +1,7 @@
-div.container a.input-group-btn {
+.search-button {
     font-size: 14px;
+    margin-left: 10px;
+    border-color: 'green'
 }
 
 .suggestions {
@@ -9,6 +11,36 @@ div.container a.input-group-btn {
     z-index:99
 }
 
-.input-group {
+.search-bar {
     flex-wrap: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
 }
+.search-bar-narrow {
+
+
+}
+
+.search-bar-wide {
+    width: 40%;
+    margin-left: 5px;
+}
+
+/* Moved styles from SearchBar.jsx */
+.autocomplete {
+  width: 75%;
+}
+
+.autocomplete .MuiAutocomplete-endAdornment {
+  display: none;
+}
+
+/* Added styles for the Box component */
+.search-bar-box {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
