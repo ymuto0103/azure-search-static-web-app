@@ -14,7 +14,7 @@
 
 .search-bar-results {
     flex: 2;
-    min-width: 300px; /* Adjust as needed */
+    min-width: 300px; 
 }
 
 @media (max-width: 768px) {
@@ -43,8 +43,14 @@
     max-width: fit-content;
 }
 
-.search-bar {
-    margin: 1em;
-    margin-bottom: 1em;
-    margin-top: 2em;
+/* Adjust the width of the search-bar to make it shorter */
+.search-bar-column-container {
+
+  width: 100%; /* Adjusted width to make it shorter */
+  margin: 0 auto; /* Center the search bar */
+  margin-top: 10px;
+}
+.search-results-container {
+    flex: 0 0 100%; /* Takes up 75% of the row */
+    max-width: 100%; 
 }

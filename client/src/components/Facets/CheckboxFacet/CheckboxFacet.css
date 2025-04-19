@@ -12,3 +12,17 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+.facet-list-item {
+    padding-left: 36px !important;
+}
+
+.facet-value-list-item {
+    padding-left: 46px !important;
+}
+
+.facet-values-list {
+    max-height: 340px;
+    overflow-y: auto !important;
+    margin-right: 18px !important;
+}

@@ -3,13 +3,25 @@
     color: #eee;
 }
 
-.navbar-logo {
-    width: 1.5em;
-    height: auto;
+.nav-bar-search {
+  margin-left: 10px;;
 }
 
-.nav-link { color: #fff; }
+.header .nav-link {
+  color: #fff;
+}
 .nav-link:hover { color: #eee; }
 
 .auth-link { color: #fff; }
 .auth-link:hover { color: #eee; }
+
+.navbar-brand-image {
+  height: 40px; /* Adjust the height as needed */
+}
+
+/* Ensure the logo keeps its aspect ratio using modern CSS */
+.navbar-logo {
+    height: 1.5em;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+}

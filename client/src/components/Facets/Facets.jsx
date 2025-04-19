@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Chip } from '@mui/material';
+// Removed styled import now that we no longer use styled-components
 import CheckboxFacet from './CheckboxFacet/CheckboxFacet';
-import styled from 'styled-components';
 import "./Facets.css";
 
 export default function Facets(props) {
@@ -27,7 +27,7 @@ export default function Facets(props) {
     }
 
     var facets;
-    try{
+    try {
         facets = Object.keys(props.facets).map(key => {
             return <CheckboxFacet 
                 key={key}
@@ -36,41 +36,37 @@ export default function Facets(props) {
                 addFilter={addFilter}
                 removeFilter={removeFilter}
                 mapFacetName={mapFacetName}
-                selectedFacets={props.filters.filter( f => f.field === key)}
-              />;
-          });
+                selectedFacets={props.filters.filter(f => f.field === key)}
+            />;
+        });
     } catch (error) {
         console.log(error);
     }
 
     const filters = props.filters.map((filter, index) => {
-            return (
+        return (
             <li key={index}>
                 <Chip 
                     label={`${mapFacetName(filter.field)}: ${filter.value}`} 
                     onDelete={() => removeFilter(filter)}
                     className="chip"
-              />
-            </li>);
-          });
-
+                />
+            </li>
+        );
+    });
 
     return (
         <div id="facetPanel" className="box">
             <div className="facetbox">
                 <div id="clearFilters">
-                <ul className="filterlist">
-                    {filters}
-                </ul>
+                    <ul className="filterlist">
+                        {filters}
+                    </ul>
                 </div>
-                <FacetList component="nav" className="listitem" >
+                <List component="nav" className="listitem facet-list">
                     {facets}
-                </FacetList>    
+                </List>    
             </div>
         </div>
     );
-};
-
-const FacetList = styled(List)({
-    marginTop: '32px !important'
-})
+}
