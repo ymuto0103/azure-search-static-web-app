@@ -27,10 +27,25 @@ export default function Search() {
 
   let resultsPerPage = top;
 
-  useEffect(() => {
-    setIsLoading(true);
-    setSkip((currentPage - 1) * top);
+  // Handle page changes in a controlled manner
+  function handlePageChange(newPage) {
+    setCurrentPage(newPage);
+  }
 
+  // Calculate skip value and fetch results when relevant parameters change
+  useEffect(() => {
+    // Calculate skip based on current page
+    const calculatedSkip = (currentPage - 1) * top;
+    
+    // Only update if skip has actually changed
+    if (calculatedSkip !== skip) {
+      setSkip(calculatedSkip);
+      return; // Skip the fetch since skip will change and trigger another useEffect
+    }
+    
+    // Proceed with fetch
+    setIsLoading(true);
+    
     const body = {
       q: q,
       top: top,
@@ -38,6 +53,7 @@ export default function Search() {
       filters: filters
     };
 
+    
     fetchInstance('/api/search', { body, method: 'POST' })
       .then(response => {
         setResults(response.results);
@@ -49,7 +65,6 @@ export default function Search() {
         console.log(error);
         setIsLoading(false);
       });
-
   }, [q, top, skip, filters, currentPage]);
 
   // pushing the new search term to history when q is updated
@@ -63,7 +78,6 @@ export default function Search() {
 
 
   let postSearchHandler = (searchTerm) => {
-    //console.log(searchTerm);
     setQ(searchTerm);
   }
 
@@ -97,7 +111,7 @@ export default function Search() {
           ) : (
             <div className="search-results-container">
               <Results documents={results} top={top} skip={skip} count={resultCount} query={q}></Results>
-              <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} setCurrentPage={setCurrentPage}></Pager>
+              <Pager className="pager-style" currentPage={currentPage} resultCount={resultCount} resultsPerPage={resultsPerPage} onPageChange={handlePageChange}></Pager>
             </div>
           )}
         </div>

@@ -7,15 +7,11 @@ export default function SearchBar({ postSearchHandler, query, width }) {
   const [q, setQ] = useState(() => query || '');
   const [suggestions, setSuggestions] = useState([]);
 
-  console.log(`width = ${width}`);
-
   const search = (value) => {
-    console.log(`search: ${value}`);
     postSearchHandler(value);
   };
 
   useEffect(() => {
-    console.log(`useEffect getSuggestions: ${q}`);
     if (q) {
 
       const body = { q, top: 5, suggester: 'sg' };
@@ -33,19 +29,17 @@ export default function SearchBar({ postSearchHandler, query, width }) {
 
 
   const onInputChangeHandler = (event, value) => {
-    console.log(`onInputChangeHandler: ${value}`);
     setQ(value);
   };
 
 
   const onChangeHandler = (event, value) => {
-    console.log(`onChangeHandler: ${value}`);
+
     setQ(value);
     search(value);
   };
 
   const onEnterButton = (event) => {
-    console.log(`onEnterButton: ${q}`);
     // if enter key is pressed
     if (event.key === 'Enter') {
       search(q);
@@ -78,7 +72,6 @@ export default function SearchBar({ postSearchHandler, query, width }) {
         />
         <div className="search-button" >
           <Button variant="contained" color="primary" onClick={() => {
-            console.log(`search button: ${q}`);
             search(q)
           }
           }>

@@ -11,6 +11,15 @@ ENV/
 env.bak/
 venv.bak/
 
+# Ignore all .env files anywhere in the repository
+**/.env*
+
+# Ignore all node_modules directories anywhere in the repository
+**/node_modules/
+
+# Ignore all build directories anywhere in the repository
+**/build/
+
 # Spyder project settings
 .spyderproject
 .spyproject

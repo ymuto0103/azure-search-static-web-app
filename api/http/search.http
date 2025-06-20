@@ -4,6 +4,6 @@ content-type: application/json
 {
     "q": "dog",
     "top": 3,
-    "skip": 5,
+    "skip": 5
 
 }
